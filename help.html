@@ -115,6 +115,10 @@
   }
   .callout p { margin: 0; color: var(--stone-800); font-size: 14.5px; }
   .callout p + p { margin-top: 8px; }
+  .callout.warn { border-color: var(--amber-300); background: var(--amber-50); margin: 14px 0; }
+  .callout.warn .label { color: var(--amber-800); }
+  .callout.warn ul { margin: 6px 0 0; font-size: 14.5px; }
+  .callout.warn code { font-size: 12.5px; }
   h2 {
     font-size: 13px;
     letter-spacing: 0.1em;
@@ -260,7 +264,7 @@
     <details class="faq" name="basics">
       <summary><span class="q">Does that mean it's only on this one computer?</span><svg class="chev" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="5 7.5 10 12.5 15 7.5"/></svg></summary>
       <div class="faq-body">
-        <p>Yes. Local storage is not synced between devices or browsers — it doesn't even follow you if you switch from Chrome to Edge on the <em>same</em> computer. Your roadmap on your work laptop and your roadmap on your home computer are two entirely separate copies unless you deliberately move data between them (via Backup JSON, Share link, or Cloud).</p>
+        <p>Yes. Local storage is not synced between devices or browsers — it doesn't even follow you if you switch from Chrome to Edge on the <em>same</em> computer. Your roadmap on your work laptop and your roadmap on your home computer are two entirely separate copies unless you deliberately move data between them (via a Full backup file, a Share link, or Cloud).</p>
       </div>
     </details>
 
@@ -273,7 +277,17 @@
           <li>you use a private/incognito window (cleared when the window closes),</li>
           <li>or you use a different browser or device.</li>
         </ul>
-        <p>If any of those apply to you, use <strong>Backup JSON</strong> (in the Actions menu) to save a copy you control.</p>
+        <div class="callout warn">
+          <div class="label">Warning · Microsoft Edge &amp; work laptops</div>
+          <p>Some browsers are set to <strong>wipe site data every time they close</strong>, which deletes a local-only roadmap on the next restart, with no warning and no way to undo it. This is common on company-managed laptops, where IT can enforce it. To check in Edge:</p>
+          <ul>
+            <li><code>edge://settings/clearBrowsingDataOnClose</code>: <em>Cookies and other site data</em> should be off.</li>
+            <li><code>edge://settings/content/cookies</code>: <em>Delete cookies and site data when you close all windows</em> should be off.</li>
+            <li><code>edge://policy</code>: if <code>ClearBrowsingDataOnExit</code> is listed, your organisation has turned it on and you can't switch it off.</li>
+          </ul>
+          <p>If any of these apply, don't rely on the browser alone. Save the roadmap to the <strong>Cloud</strong>, or use <strong>Save a copy → Full backup</strong> before you close the browser.</p>
+        </div>
+        <p>If any of the reasons above apply to you, use <strong>Save a copy → Full backup</strong> (in the ☰ menu) to keep a copy you control.</p>
       </div>
     </details>
 
@@ -324,9 +338,10 @@
     <h2>Manual export/import</h2>
 
     <details class="faq" name="backup">
-      <summary><span class="q">What about "Backup JSON," "Restore JSON," "Export CSV," and "Import CSV"?</span><svg class="chev" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="5 7.5 10 12.5 15 7.5"/></svg></summary>
+      <summary><span class="q">What about "Save a copy" and "Open from file"?</span><svg class="chev" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="5 7.5 10 12.5 15 7.5"/></svg></summary>
       <div class="faq-body">
         <p>These save a file to your own computer's downloads folder (or read one back in) — the same as saving a Word document. The app doesn't upload these files anywhere; they only exist wherever you choose to keep them afterwards.</p>
+        <p><strong>Full backup</strong> (<code>.json</code>) is the whole roadmap: title, columns, teams and items. <strong>Restore backup</strong> puts it all back. <strong>Items as spreadsheet</strong> (<code>.csv</code>) is just the item list, for Excel or Sheets. <strong>Import items</strong> adds rows from a CSV to the current board without replacing it.</p>
       </div>
     </details>
 
@@ -338,7 +353,7 @@
       </thead>
       <tbody>
         <tr><td>Normal editing</td><td>Browser local storage</td><td>No</td></tr>
-        <tr><td>Backup JSON / Export CSV</td><td>A file you save yourself</td><td>Only if you send that file</td></tr>
+        <tr><td>Save a copy (Full backup / Items as spreadsheet)</td><td>A file you save yourself</td><td>Only if you send that file</td></tr>
         <tr><td>Share as URL</td><td>Encoded inside the link you generate</td><td>Only if you send that link</td></tr>
         <tr><td>Cloud (save)</td><td>Private "working copy" in Supabase, key-gated</td><td>Yes — opt-in, click required</td></tr>
         <tr><td>Publish</td><td>Public "published copy" in Supabase, viewable by anyone with the id</td><td>Yes — opt-in, click required</td></tr>
